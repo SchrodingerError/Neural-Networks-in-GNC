@@ -1,0 +1,369 @@
+Random seed for torch and numpy: 2300
+Epoch 0/10000 | Loss: 1087012.250000
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 25/10000 | Loss: 6898.118652
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 50/10000 | Loss: 4412.367676
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 75/10000 | Loss: 3298.566406
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 100/10000 | Loss: 3002.045166
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 125/10000 | Loss: 2829.683350
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 150/10000 | Loss: 2759.196289
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 175/10000 | Loss: 2696.267090
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 200/10000 | Loss: 2641.802246
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 225/10000 | Loss: 2627.766113
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 250/10000 | Loss: 2616.508789
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 275/10000 | Loss: 2606.689697
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 300/10000 | Loss: 2598.056641
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 325/10000 | Loss: 2590.355225
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 350/10000 | Loss: 2583.272217
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 375/10000 | Loss: 2576.819092
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 400/10000 | Loss: 2570.974365
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 425/10000 | Loss: 2565.622070
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 450/10000 | Loss: 2560.492676
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 475/10000 | Loss: 2555.507080
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 500/10000 | Loss: 2550.791992
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 525/10000 | Loss: 2546.307373
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 550/10000 | Loss: 2542.235352
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 575/10000 | Loss: 2538.663086
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 600/10000 | Loss: 2535.666260
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 625/10000 | Loss: 2533.218262
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 650/10000 | Loss: 2531.062744
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 675/10000 | Loss: 2529.083252
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 700/10000 | Loss: 2527.166504
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 725/10000 | Loss: 2525.322754
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 750/10000 | Loss: 2523.717285
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 775/10000 | Loss: 2522.445312
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 800/10000 | Loss: 2521.282715
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 825/10000 | Loss: 2520.170166
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 850/10000 | Loss: 2519.124756
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 875/10000 | Loss: 2518.129395
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 900/10000 | Loss: 2517.175781
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 925/10000 | Loss: 2516.259277
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 950/10000 | Loss: 2515.370117
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 975/10000 | Loss: 2514.497314
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1000/10000 | Loss: 2513.662109
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1025/10000 | Loss: 2512.872559
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1050/10000 | Loss: 2512.114258
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1075/10000 | Loss: 2511.387451
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1100/10000 | Loss: 2510.668945
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1125/10000 | Loss: 2509.930176
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1150/10000 | Loss: 2509.170654
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1175/10000 | Loss: 2508.456055
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1200/10000 | Loss: 2507.726318
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1225/10000 | Loss: 2507.019043
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1250/10000 | Loss: 2506.293457
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1275/10000 | Loss: 2505.667725
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1300/10000 | Loss: 2504.782471
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1325/10000 | Loss: 2504.036133
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1350/10000 | Loss: 2503.286377
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1375/10000 | Loss: 2502.594482
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1400/10000 | Loss: 2501.831055
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1425/10000 | Loss: 2501.141846
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1450/10000 | Loss: 2500.542969
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1475/10000 | Loss: 2499.948242
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1500/10000 | Loss: 2499.469482
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1525/10000 | Loss: 2499.087891
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1550/10000 | Loss: 2498.799805
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1575/10000 | Loss: 2498.394531
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1600/10000 | Loss: 2498.098633
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1625/10000 | Loss: 2497.802246
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1650/10000 | Loss: 2497.553467
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1675/10000 | Loss: 2497.372559
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1700/10000 | Loss: 2497.127930
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1725/10000 | Loss: 2496.876465
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1750/10000 | Loss: 2496.729980
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1775/10000 | Loss: 2496.487793
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1800/10000 | Loss: 2496.275635
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1825/10000 | Loss: 2496.156006
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1850/10000 | Loss: 2495.860840
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1875/10000 | Loss: 2495.555664
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1900/10000 | Loss: 2495.285156
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1925/10000 | Loss: 2495.070801
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1950/10000 | Loss: 2494.809326
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 1975/10000 | Loss: 2494.603516
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2000/10000 | Loss: 2494.521484
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2025/10000 | Loss: 2494.258789
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2050/10000 | Loss: 2494.076904
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2075/10000 | Loss: 2493.911377
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2100/10000 | Loss: 2493.803467
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2125/10000 | Loss: 2493.607422
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2150/10000 | Loss: 2493.448242
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2175/10000 | Loss: 2493.372559
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2200/10000 | Loss: 2493.167480
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2225/10000 | Loss: 2493.021729
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2250/10000 | Loss: 2492.921631
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2275/10000 | Loss: 2492.787354
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2300/10000 | Loss: 2492.633545
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2325/10000 | Loss: 2492.525146
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2350/10000 | Loss: 2492.379883
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2375/10000 | Loss: 2492.259521
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2400/10000 | Loss: 2492.202637
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2425/10000 | Loss: 2492.150146
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2450/10000 | Loss: 2491.947266
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2475/10000 | Loss: 2491.830322
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2500/10000 | Loss: 2491.792725
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2525/10000 | Loss: 2491.766846
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2550/10000 | Loss: 2491.499023
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2575/10000 | Loss: 2491.353271
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2600/10000 | Loss: 2491.218262
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2625/10000 | Loss: 2491.115967
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2650/10000 | Loss: 2491.019043
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2675/10000 | Loss: 2490.816650
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2700/10000 | Loss: 2490.701416
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2725/10000 | Loss: 2490.608643
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2750/10000 | Loss: 2490.554688
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2775/10000 | Loss: 2490.380615
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2800/10000 | Loss: 2490.269287
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2825/10000 | Loss: 2490.158691
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2850/10000 | Loss: 2490.026367
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2875/10000 | Loss: 2489.925049
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2900/10000 | Loss: 2489.862061
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2925/10000 | Loss: 2489.746582
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2950/10000 | Loss: 2489.623291
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 2975/10000 | Loss: 2489.500244
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3000/10000 | Loss: 2489.391357
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3025/10000 | Loss: 2489.324219
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3050/10000 | Loss: 2489.150391
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3075/10000 | Loss: 2489.061279
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3100/10000 | Loss: 2489.039062
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3125/10000 | Loss: 2488.841064
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3150/10000 | Loss: 2488.878906
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3175/10000 | Loss: 2488.596191
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3200/10000 | Loss: 2488.661133
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3225/10000 | Loss: 2488.471924
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3250/10000 | Loss: 2488.281738
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3275/10000 | Loss: 2488.207764
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3300/10000 | Loss: 2488.135254
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3325/10000 | Loss: 2488.150879
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3350/10000 | Loss: 2487.887207
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3375/10000 | Loss: 2487.853271
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3400/10000 | Loss: 2487.732178
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3425/10000 | Loss: 2487.609863
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3450/10000 | Loss: 2487.441406
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3475/10000 | Loss: 2487.407715
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3500/10000 | Loss: 2487.238770
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3525/10000 | Loss: 2487.141113
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3550/10000 | Loss: 2487.045166
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3575/10000 | Loss: 2486.975342
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3600/10000 | Loss: 2486.823486
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3625/10000 | Loss: 2486.737549
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3650/10000 | Loss: 2486.565430
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3675/10000 | Loss: 2486.515625
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3700/10000 | Loss: 2486.400879
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3725/10000 | Loss: 2486.353516
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3750/10000 | Loss: 2486.283203
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3775/10000 | Loss: 2486.348145
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3800/10000 | Loss: 2486.106689
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3825/10000 | Loss: 2485.986816
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3850/10000 | Loss: 2485.947266
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3875/10000 | Loss: 2485.885010
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3900/10000 | Loss: 2485.864746
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3925/10000 | Loss: 2485.722168
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3950/10000 | Loss: 2485.631348
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 3975/10000 | Loss: 2485.570801
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4000/10000 | Loss: 2485.480469
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4025/10000 | Loss: 2485.408203
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4050/10000 | Loss: 2485.328857
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4075/10000 | Loss: 2485.380859
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4100/10000 | Loss: 2485.173340
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4125/10000 | Loss: 2485.126953
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4150/10000 | Loss: 2485.287842
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4175/10000 | Loss: 2485.052734
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4200/10000 | Loss: 2485.130127
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4225/10000 | Loss: 2484.903809
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4250/10000 | Loss: 2484.796631
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4275/10000 | Loss: 2484.809570
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4300/10000 | Loss: 2484.670166
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4325/10000 | Loss: 2484.635986
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4350/10000 | Loss: 2484.849365
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4375/10000 | Loss: 2484.489746
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4400/10000 | Loss: 2484.434326
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4425/10000 | Loss: 2484.559326
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4450/10000 | Loss: 2484.332764
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4475/10000 | Loss: 2484.375244
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4500/10000 | Loss: 2484.210693
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4525/10000 | Loss: 2484.157227
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4550/10000 | Loss: 2484.145264
+Model saved as 'controller_with_desired_theta.pth'.
+Epoch 4575/10000 | Loss: 2484.091309
+Model saved as 'controller_with_desired_theta.pth'.

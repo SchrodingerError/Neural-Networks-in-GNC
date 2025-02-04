@@ -180,7 +180,7 @@ for idx, (theta0, omega0, alpha0, desired_theta) in enumerate(in_sample_cases):
     ax2.set_ylabel("Torque [Nm]")
     ax2.legend(loc="upper right")
 
-    plt.title(f"IC (theta={theta0}, omega={omega0}, alpha={alpha0})")
+    plt.title(f"IC (theta={theta0:.3f}, omega={omega0:.3f}, alpha={alpha0:.3f})")
     plt.tight_layout()
 
     filename = f"{idx+1}_theta0_{theta0:.3f}_omega0_{omega0:.3f}_alpha0_{alpha0:.3f}_desiredtheta_{desired_theta:.3f}_finaltheta_{final_theta:.3f}.png"
@@ -191,7 +191,7 @@ for idx, (theta0, omega0, alpha0, desired_theta) in enumerate(in_sample_cases):
 
 # Create a DataFrame for tabular representation
 df_losses = pd.DataFrame(in_sample_cases, columns=["theta0", "omega0", "alpha0", "desired_theta"])
-df_losses["final_theta"] = final_theta
+df_losses["final_theta"] = final_thetas
 df_losses["loss"] = losses
 
 # Add run # column
@@ -199,6 +199,11 @@ df_losses.insert(0, "Run #", range(1, len(in_sample_cases) + 1))
 
 # Print the table
 print(df_losses.to_string(index=False))
+print(f"\nAverage Loss for In-Sample Validation: {np.mean(losses):.4f}")
+
+desired_thetas = np.array([case[3] for case in in_sample_cases])
+final_thetas = np.array(final_thetas)
+print(f"\nAverage abs(Final Theta - Desired Theta) for In-Sample Validation: {np.mean(np.abs(final_thetas - desired_thetas)):.4f}")
 
 
 # Out-of-sample validation
@@ -229,6 +234,8 @@ out_sample_cases = [
 ]
 
 
+losses = []
+final_thetas = []
 
 for idx, (theta0, omega0, alpha0, desired_theta) in enumerate(out_sample_cases):
     state = np.array([theta0, omega0, alpha0])
@@ -286,7 +293,7 @@ for idx, (theta0, omega0, alpha0, desired_theta) in enumerate(out_sample_cases):
     ax2.set_ylabel("Torque [Nm]")
     ax2.legend(loc="upper right")
 
-    plt.title(f"IC (theta={theta0}, omega={omega0}, alpha={alpha0})")
+    plt.title(f"IC (theta={theta0:.3f}, omega={omega0:.3f}, alpha={alpha0:.3f})")
     plt.tight_layout()
 
     filename = f"{idx+1}_theta0_{theta0:.3f}_omega0_{omega0:.3f}_alpha0_{alpha0:.3f}_desiredtheta_{desired_theta:.3f}_finaltheta_{final_theta:.3f}.png"
@@ -298,7 +305,7 @@ for idx, (theta0, omega0, alpha0, desired_theta) in enumerate(out_sample_cases):
 
 # Create a DataFrame for tabular representation
 df_losses = pd.DataFrame(out_sample_cases, columns=["theta0", "omega0", "alpha0", "desired_theta"])
-df_losses["final_theta"] = final_theta
+df_losses["final_theta"] = final_thetas
 df_losses["loss"] = losses
 
 # Add run # column
@@ -306,3 +313,8 @@ df_losses.insert(0, "Run #", range(1, len(out_sample_cases) + 1))
 
 # Print the table
 print(df_losses.to_string(index=False))
+print(f"\nAverage Loss for Out-of-Sample Validation: {np.mean(losses):.4f}")
+
+desired_thetas = np.array([case[3] for case in out_sample_cases])
+final_thetas = np.array(final_thetas)
+print(f"\nAverage abs(Final Theta - Desired Theta) for Out-of-Sample Validation: {np.mean(np.abs(final_thetas - desired_thetas)):.4f}")
