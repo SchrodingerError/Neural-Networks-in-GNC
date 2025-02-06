@@ -9,7 +9,7 @@ import csv
 import os
 
 # Specify directory for storing results
-output_dir = "training/no_time_weight"
+output_dir = "training/quadratic_time_weight"
 controller_output_dir = output_dir + "/controllers"
 os.makedirs(output_dir, exist_ok=True)  # Create directory if it doesn't exist
 os.makedirs(controller_output_dir, exist_ok=True)  # Create directory if it doesn't exist
@@ -89,11 +89,14 @@ class PendulumDynamics(nn.Module):
         alpha_desired = (g / R) * torch.sin(theta) + tau / (m * R**2)
         return torch.stack([omega, alpha, alpha_desired - alpha, torch.zeros_like(desired_theta)], dim=1)
 
-def loss_fn(state_traj):
+def loss_fn(state_traj, t_span):
     theta = state_traj[:, :, 0]
     desired_theta = state_traj[:, :, 3]
 
-    return 1e3 * torch.mean((theta - desired_theta) ** 2)
+    # Make the time weights broadcastable for theta [len(t_span), len(batches)]
+    time_weights = (t_span ** 2).view(-1, 1)
+
+    return 1e3 * torch.mean(time_weights * (theta - desired_theta) ** 2)
 
 # Initialize controller and dynamics
 controller = PendulumController().to(device)
@@ -142,7 +145,7 @@ with open(log_file, "a", newline="") as csvfile:
 
         optimizer.zero_grad()
         state_traj = odeint(pendulum_dynamics, state_0, t_span, method='rk4')
-        loss = loss_fn(state_traj)
+        loss = loss_fn(state_traj, t_span)
 
         elapsed_time = time.time() - epoch_start_time
 
