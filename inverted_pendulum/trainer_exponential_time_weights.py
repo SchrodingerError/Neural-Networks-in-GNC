@@ -104,7 +104,7 @@ controller = PendulumController().to(device)
 pendulum_dynamics = PendulumDynamics(controller).to(device)
 
 # Optimizer setup
-learning_rate = 1e-1
+learning_rate = 1e-2
 weight_decay = 1e-4
 optimizer = optim.Adam(controller.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
