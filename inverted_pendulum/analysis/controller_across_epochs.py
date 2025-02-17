@@ -7,19 +7,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from multiprocessing import Pool, cpu_count
 
 # Define PendulumController class
-class PendulumController(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.Linear(4, 64),
-            nn.ReLU(),
-            nn.Linear(64, 64),
-            nn.ReLU(),
-            nn.Linear(64, 1)
-        )
-
-    def forward(self, x):
-        return self.net(x)  
+from PendulumController import PendulumController
 
 # ODE solver (RK4 method)
 def pendulum_ode_step(state, dt, desired_theta, controller):
@@ -64,9 +52,9 @@ dt = 0.02  # Time step
 num_steps = 500  # Simulation time steps
 
 # Directory containing controller files
-loss_function = "cubic_time_weight"
-#controller_dir = f"/home/judson/Neural-Networks-in-GNC/inverted_pendulum/training/{loss_function}/controllers"
-controller_dir = f"C:/Users/Judson/Desktop/New Gitea/Neural-Networks-in-GNC/inverted_pendulum/training/{loss_function}/controllers"
+loss_function = "constant"
+controller_dir = f"/home/judson/Neural-Networks-in-GNC/inverted_pendulum/training/normalized/training/{loss_function}/controllers"
+#controller_dir = f"C:/Users/Judson/Desktop/New Gitea/Neural-Networks-in-GNC/inverted_pendulum/training/{loss_function}/controllers"
 controller_files = sorted([f for f in os.listdir(controller_dir) if f.startswith("controller_") and f.endswith(".pth")])
 
 # Sorting controllers by epoch
@@ -74,7 +62,7 @@ controller_epochs = [int(f.split('_')[1].split('.')[0]) for f in controller_file
 sorted_controllers = [x for _, x in sorted(zip(controller_epochs, controller_files))]
 
 # **Epoch Range Selection**
-epoch_range = (0, 100)  # Set your desired range (e.g., (0, 5000) or (0, 100))
+epoch_range = (0, 500)  # Set your desired range (e.g., (0, 5000) or (0, 100))
 
 filtered_controllers = [
     f for f in sorted_controllers
@@ -86,7 +74,8 @@ N = 1  # Change this value to adjust granularity (e.g., every 5th controller)
 selected_controllers = filtered_controllers[::N]  # Take every Nth controller within the range
 
 # Initial condition
-theta0, omega0, alpha0, desired_theta = (-np.pi, 0, 0.0, 0.0)  # Example initial condition
+# theta0, omega0, alpha0, desired_theta = (-np.pi, -2*np.pi, 0.0, -1.3*np.pi)  # Example initial condition
+theta0, omega0, alpha0, desired_theta = (-np.pi, 0.0, 0.0, 0.0)  # Example initial condition
 
 # Parallel function must return epoch explicitly
 def run_simulation(controller_file):
@@ -115,13 +104,12 @@ if __name__ == "__main__":
     with Pool(processes=num_workers) as pool:
         results = pool.map(run_simulation, selected_controllers)
 
-    # **Sort results by epoch to ensure correct order**
+    # Sort results by epoch to ensure correct order
     results.sort(key=lambda x: x[0])  
     epochs, theta_over_epochs = zip(*results)  # Unzip sorted results
 
     # Convert results to NumPy arrays
     theta_over_epochs = np.array(theta_over_epochs)
-
 
     # Create 3D line plot
     fig = plt.figure(figsize=(10, 7))
@@ -143,6 +131,15 @@ if __name__ == "__main__":
     ax.set_ylabel("Time (s)")
     ax.set_zlabel("Theta (rad)")
     ax.set_title(f"Pendulum Angle Evolution for {loss_function}")
+
+    # Add a horizontal line at desired_theta across all epochs and time steps
+    epochs_array = np.array([epoch for epoch, _ in zip(epochs, theta_over_epochs)])
+    ax.plot(
+        epochs_array,  # X-axis spanning all epochs
+        [time_steps.max()] * len(epochs_array),  # Y-axis at the maximum time step
+        [desired_theta] * len(epochs_array),  # Constant Z-axis value of desired_theta
+        color='r', linestyle='--', linewidth=2, label='Desired Theta at End Time'
+    )
 
     # Improve visibility
     ax.view_init(elev=20, azim=-135)  # Adjust 3D perspective
