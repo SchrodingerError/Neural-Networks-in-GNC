@@ -52,7 +52,7 @@ dt = 0.02  # Time step
 num_steps = 500  # Simulation time steps
 
 # Directory containing controller files
-loss_function = "constant"
+loss_function = "quadratic"
 controller_dir = f"/home/judson/Neural-Networks-in-GNC/inverted_pendulum/training/normalized/training/{loss_function}/controllers"
 #controller_dir = f"C:/Users/Judson/Desktop/New Gitea/Neural-Networks-in-GNC/inverted_pendulum/training/{loss_function}/controllers"
 controller_files = sorted([f for f in os.listdir(controller_dir) if f.startswith("controller_") and f.endswith(".pth")])
@@ -62,7 +62,7 @@ controller_epochs = [int(f.split('_')[1].split('.')[0]) for f in controller_file
 sorted_controllers = [x for _, x in sorted(zip(controller_epochs, controller_files))]
 
 # **Epoch Range Selection**
-epoch_range = (0, 500)  # Set your desired range (e.g., (0, 5000) or (0, 100))
+epoch_range = (0, 1000)  # Set your desired range (e.g., (0, 5000) or (0, 100))
 
 filtered_controllers = [
     f for f in sorted_controllers
