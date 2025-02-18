@@ -9,6 +9,13 @@ from multiprocessing import Pool, cpu_count
 # Define PendulumController class
 from PendulumController import PendulumController
 
+# Constants
+g = 9.81  # Gravity
+R = 1.0   # Length of the pendulum
+m = 10.0  # Mass
+dt = 0.02  # Time step
+num_steps = 500  # Simulation time steps
+
 # ODE solver (RK4 method)
 def pendulum_ode_step(state, dt, desired_theta, controller):
     theta, omega, alpha = state
@@ -44,41 +51,9 @@ def pendulum_ode_step(state, dt, desired_theta, controller):
     new_state = state + (k1 + 2*k2 + 2*k3 + k4) / 6.0
     return new_state
 
-# Constants
-g = 9.81  # Gravity
-R = 1.0   # Length of the pendulum
-m = 10.0   # Mass
-dt = 0.02  # Time step
-num_steps = 500  # Simulation time steps
-
-# Directory containing controller files
-loss_function = "quadratic"
-controller_dir = f"/home/judson/Neural-Networks-in-GNC/inverted_pendulum/training/normalized/training/{loss_function}/controllers"
-#controller_dir = f"C:/Users/Judson/Desktop/New Gitea/Neural-Networks-in-GNC/inverted_pendulum/training/{loss_function}/controllers"
-controller_files = sorted([f for f in os.listdir(controller_dir) if f.startswith("controller_") and f.endswith(".pth")])
-
-# Sorting controllers by epoch
-controller_epochs = [int(f.split('_')[1].split('.')[0]) for f in controller_files]
-sorted_controllers = [x for _, x in sorted(zip(controller_epochs, controller_files))]
-
-# **Epoch Range Selection**
-epoch_range = (0, 1000)  # Set your desired range (e.g., (0, 5000) or (0, 100))
-
-filtered_controllers = [
-    f for f in sorted_controllers
-    if epoch_range[0] <= int(f.split('_')[1].split('.')[0]) <= epoch_range[1]
-]
-
-# **Granularity Control: Select every Nth controller**
-N = 1  # Change this value to adjust granularity (e.g., every 5th controller)
-selected_controllers = filtered_controllers[::N]  # Take every Nth controller within the range
-
-# Initial condition
-# theta0, omega0, alpha0, desired_theta = (-np.pi, -2*np.pi, 0.0, -1.3*np.pi)  # Example initial condition
-theta0, omega0, alpha0, desired_theta = (-np.pi, 0.0, 0.0, 0.0)  # Example initial condition
-
-# Parallel function must return epoch explicitly
-def run_simulation(controller_file):
+def run_simulation(params):
+    controller_file, initial_condition = params
+    theta0, omega0, alpha0, desired_theta = initial_condition
     epoch = int(controller_file.split('_')[1].split('.')[0])
     
     # Load controller
@@ -96,54 +71,100 @@ def run_simulation(controller_file):
 
     return epoch, theta_vals  # Return epoch with data
 
-# Parallel processing
+# Named initial conditions
+initial_conditions = {
+    "small_perturbation": (0.1*np.pi, 0.0, 0.0, 0.0),
+    "large_perturbation": (-np.pi, 0.0, 0.0, 0),
+    "overshoot_vertical_test": (-0.1*np.pi, 2*np.pi, 0.0, 0.0),
+    "overshoot_angle_test": (0.2*np.pi, 2*np.pi, 0.0, 0.3*np.pi),
+    "extreme_perturbation": (4*np.pi, 0.0, 0.0, 0),
+}
+
+# Loss functions to iterate over
+loss_functions = ["constant", "linear", "quadratic", "exponential", "inverse", "inverse_squared"]
+
+
+epoch_start = 0   # Start of the epoch range
+epoch_end = 500  # End of the epoch range
+epoch_step = 5    # Interval between epochs
+
 if __name__ == "__main__":
-    num_workers = min(cpu_count(), 16)  # Limit to 16 workers max
-    print(f"Using {num_workers} parallel workers...")
-    
-    with Pool(processes=num_workers) as pool:
-        results = pool.map(run_simulation, selected_controllers)
+    for condition_name, initial_condition in initial_conditions.items():
+        full_path = f"/home/judson/Neural-Networks-in-GNC/inverted_pendulum/analysis/max_normalized/{condition_name}"
+        os.makedirs(full_path, exist_ok=True)  # Create directory if it does not exist
+        
+        for loss_function in loss_functions:
+            controller_dir = f"/home/judson/Neural-Networks-in-GNC/inverted_pendulum/training/normalized/max_normalized/{loss_function}/controllers"
+            controller_files = sorted([f for f in os.listdir(controller_dir) if f.startswith("controller_") and f.endswith(".pth")])
+            # Extract epoch numbers and filter based on the defined range and interval
+            epoch_numbers = [int(f.split('_')[1].split('.')[0]) for f in controller_files]
+            selected_epochs = [e for e in epoch_numbers if epoch_start <= e <= epoch_end and (e - epoch_start) % epoch_step == 0]
 
-    # Sort results by epoch to ensure correct order
-    results.sort(key=lambda x: x[0])  
-    epochs, theta_over_epochs = zip(*results)  # Unzip sorted results
+            # Filter the controller files to include only those within the selected epochs
+            selected_controllers = [f for f in controller_files if int(f.split('_')[1].split('.')[0]) in selected_epochs]
+            selected_controllers.sort(key=lambda f: int(f.split('_')[1].split('.')[0]))
 
-    # Convert results to NumPy arrays
-    theta_over_epochs = np.array(theta_over_epochs)
+            # Setup parallel processing
+            num_workers = min(cpu_count(), 16)  # Limit to 16 workers max
+            print(f"Using {num_workers} parallel workers for {loss_function} with initial condition {condition_name}...")
 
-    # Create 3D line plot
-    fig = plt.figure(figsize=(10, 7))
-    ax = fig.add_subplot(111, projection='3d')
+            with Pool(processes=num_workers) as pool:
+                params = [(controller_file, initial_condition) for controller_file in selected_controllers]
+                results = pool.map(run_simulation, params)
 
-    time_steps = np.arange(num_steps) * dt  # X-axis (time)
+            results.sort(key=lambda x: x[0])
+            epochs, theta_over_epochs = zip(*results)
 
-    # Plot each controller as a separate line
-    for epoch, theta_vals in zip(epochs, theta_over_epochs):
-        ax.plot(
-            [epoch] * len(time_steps),  # Y-axis (epoch stays constant for each line)
-            time_steps,  # X-axis (time)
-            theta_vals,  # Z-axis (theta evolution)
-            label=f"Epoch {epoch}" if epoch % (N * 10) == 0 else "",  # Label some lines for clarity
-        )
+            fig = plt.figure(figsize=(7, 5))
+            ax = fig.add_subplot(111, projection='3d')
+            time_steps = np.arange(num_steps) * dt
 
-    # Labels
-    ax.set_xlabel("Epoch")
-    ax.set_ylabel("Time (s)")
-    ax.set_zlabel("Theta (rad)")
-    ax.set_title(f"Pendulum Angle Evolution for {loss_function}")
+            # Plot the epochs in reverse order because we view it where epoch 0 is in front
+            for epoch, theta_vals in reversed(list(zip(epochs, theta_over_epochs))):
+                ax.plot([epoch] * len(time_steps), time_steps, theta_vals)
 
-    # Add a horizontal line at desired_theta across all epochs and time steps
-    epochs_array = np.array([epoch for epoch, _ in zip(epochs, theta_over_epochs)])
-    ax.plot(
-        epochs_array,  # X-axis spanning all epochs
-        [time_steps.max()] * len(epochs_array),  # Y-axis at the maximum time step
-        [desired_theta] * len(epochs_array),  # Constant Z-axis value of desired_theta
-        color='r', linestyle='--', linewidth=2, label='Desired Theta at End Time'
-    )
 
-    # Improve visibility
-    ax.view_init(elev=20, azim=-135)  # Adjust 3D perspective
+            # Add a horizontal line at desired_theta across all epochs and time steps
+            epochs_array = np.array([epoch for epoch, _ in zip(epochs, theta_over_epochs)])
+            desired_theta = initial_condition[-1]
+            ax.plot(
+                epochs_array,  # X-axis spanning all epochs
+                [time_steps.max()] * len(epochs_array),  # Y-axis at the maximum time step
+                [desired_theta] * len(epochs_array),  # Constant Z-axis value of desired_theta
+                color='r', linestyle='--', linewidth=2, label='Desired Theta at End Time'
+            )
 
-    plt.savefig(f"{loss_function}.png", dpi=600)
-    #plt.show()
-    print(f"Saved plot as '{loss_function}.png'.")
+            ax.set_xlabel("Epoch")
+            ax.set_ylabel("Time (s)")
+            ax.set_zlabel("Theta (rad)")
+            condition_text = f"IC_{'_'.join(map(lambda x: str(round(x, 2)), initial_condition))}"
+            ax.set_title(f"Pendulum Angle Evolution for {loss_function} and {condition_text}")
+
+            # Calculate the range of theta values across all epochs
+            theta_values = np.concatenate(theta_over_epochs)
+            theta_min = np.min(theta_values)
+            theta_max = np.max(theta_values)
+
+            # Determine the desired range around the desired_theta
+            desired_range_min = desired_theta - 1 * np.pi
+            desired_range_max = desired_theta + 1 * np.pi
+
+            # Check if current theta values fall outside the desired range
+            if theta_min < desired_range_min:
+                desired_range_min = desired_range_min
+            else:
+                desired_range_min = theta_min
+
+            if theta_max > desired_range_max:
+                desired_range_max = desired_range_max
+            else:
+                desired_range_max = theta_max
+            
+            ax.set_zlim(desired_range_min, desired_range_max)
+
+            ax.view_init(elev=20, azim=-135)  # Adjust 3D perspective
+
+            plot_filename = os.path.join(full_path, f"{loss_function}.png")
+            plt.savefig(plot_filename, dpi=300)
+            plt.close()
+            print(f"Saved plot as '{plot_filename}'.")
