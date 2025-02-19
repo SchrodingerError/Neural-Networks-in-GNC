@@ -81,7 +81,7 @@ initial_conditions = {
 }
 
 # Loss functions to iterate over
-loss_functions = ["constant", "linear", "quadratic", "exponential", "inverse", "inverse_squared"]
+loss_functions = ["constant", "linear", "quadratic", "cubic", "inverse", "inverse_squared", "inverse_cubed"]
 
 
 epoch_start = 0   # Start of the epoch range
@@ -94,7 +94,7 @@ if __name__ == "__main__":
         os.makedirs(full_path, exist_ok=True)  # Create directory if it does not exist
         
         for loss_function in loss_functions:
-            controller_dir = f"/home/judson/Neural-Networks-in-GNC/inverted_pendulum/training/normalized/average_normalized/{loss_function}/controllers"
+            controller_dir = f"/home/judson/Neural-Networks-in-GNC/inverted_pendulum/training/average_normalized/{loss_function}/controllers"
             controller_files = sorted([f for f in os.listdir(controller_dir) if f.startswith("controller_") and f.endswith(".pth")])
             # Extract epoch numbers and filter based on the defined range and interval
             epoch_numbers = [int(f.split('_')[1].split('.')[0]) for f in controller_files]
