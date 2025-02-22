@@ -3,7 +3,7 @@ import os
 import numpy as np
 from simulation import run_simulation
 from data_processing import get_controller_files
-from plotting import plot_3d_epoch_evolution
+from plotting import plot_3d_epoch_evolution, plot_theta_vs_epoch
 
 # Constants and setup
 initial_conditions = {
@@ -15,15 +15,19 @@ initial_conditions = {
 }
 loss_functions = ["constant", "linear", "quadratic", "cubic", "inverse", "inverse_squared", "inverse_cubed"]
 epoch_range = (0, 1000)  # Start and end of epoch range
-epoch_step = 10          # Interval between epochs
+epoch_step = 5          # Interval between epochs
 dt = 0.02                # Time step for simulation
 num_steps = 500          # Number of steps in each simulation
 
 # Main execution
 if __name__ == "__main__":
+    all_results = {}  # Dictionary to store results by loss function
+
     for condition_name, initial_condition in initial_conditions.items():
-        save_path_main = f"/home/judson/Neural-Networks-in-GNC/inverted_pendulum/analysis/average_normalized_new/{condition_name}"
-        os.makedirs(save_path_main, exist_ok=True)  # Create directory if it does not exist
+        condition_text = f"IC_{'_'.join(map(lambda x: str(round(x, 2)), initial_condition))}"
+        desired_theta = initial_condition[-1]
+        condition_path = f"/home/judson/Neural-Networks-in-GNC/inverted_pendulum/analysis/average_normalized/{condition_name}"
+        os.makedirs(condition_path, exist_ok=True)  # Create directory if it does not exist
         for loss_function in loss_functions:
             # Construct the path to the controller directory
             directory = f"/home/judson/Neural-Networks-in-GNC/inverted_pendulum/training/average_normalized/{loss_function}/controllers"
@@ -43,13 +47,27 @@ if __name__ == "__main__":
 
             # Convert state_histories to a more manageable form if necessary, e.g., just theta values
             theta_over_epochs = [[state[0] for state in history] for history in state_histories]
+            
+            # Store results for later use
+            if loss_function not in all_results:
+                all_results[loss_function] = {}
+            all_results[loss_function][condition_name] = (epochs, theta_over_epochs)
 
-            # Plotting the 3D time evolution
-            condition_text = f"IC_{'_'.join(map(lambda x: str(round(x, 2)), initial_condition))}"
+            # Plotting the 3D epoch evolution
             print(f"Plotting the 3d epoch evolution for {loss_function} under {condition_text}")
             title = f"Pendulum Angle Evolution for {loss_function} and {condition_text}"
-            save_path = os.path.join(save_path_main, f"{loss_function}.png")
-            desired_theta = initial_condition[-1]
+            save_path = os.path.join(condition_path, f"epoch_evolution")
+            save_path = os.path.join(save_path, f"{loss_function}.png")
             plot_3d_epoch_evolution(epochs, theta_over_epochs, desired_theta, save_path, title, num_steps, dt)
+            print("")
 
-            print(f"Completed plotting for {loss_function} under {condition_name} condition.\n")
+        # Plot the  theta as a function of epoch for all loss functions
+        specific_theta_index = num_steps // 2
+        save_path = os.path.join(condition_path, f"theta_at_5sec_across_epochs.png")
+        plot_theta_vs_epoch(all_results, condition_name, desired_theta, save_path, f"Theta at 5 Seconds across Epochs for {condition_text}", specific_theta_index)
+
+        specific_theta_index = -1
+        save_path = os.path.join(condition_path, f"final_theta_across_epochs.png")
+        plot_theta_vs_epoch(all_results, condition_name, desired_theta, save_path, f"Final Theta across Epochs for {condition_text}", specific_theta_index)
+
+        print(f"Completed plotting for all loss functions under {condition_name} condition.\n")

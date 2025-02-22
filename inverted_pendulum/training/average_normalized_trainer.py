@@ -129,6 +129,7 @@ for name, weight_info in weight_functions.items():
         f.write(f"Weight Decay: {weight_decay}\n")
         f.write("\nLoss Function:\n")
         f.write(inspect.getsource(loss_fn))
+        f.write(f"\nWeight Description: {weight_info['description']}\n")
         f.write("\nTraining Cases:\n")
         f.write("[theta0, omega0, alpha0, desired_theta]\n")
         for case in state_0.cpu().numpy():
