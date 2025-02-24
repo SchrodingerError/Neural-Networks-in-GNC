@@ -12,13 +12,11 @@ from PendulumDynamics import PendulumDynamics
 
 # Device setup
 device = torch.device("cpu")
+base_controller_path = f"/home/judson/Neural-Networks-in-GNC/inverted_pendulum/training/controller_base.pth"
 
 # Initial conditions (theta0, omega0, alpha0, desired_theta)
 from initial_conditions import initial_conditions
 state_0 = torch.tensor(initial_conditions, dtype=torch.float32, device=device)
-
-# Device setup
-device = torch.device("cpu")
 
 # Constants
 m = 10.0
@@ -33,27 +31,12 @@ t_span = torch.linspace(t_start, t_end, t_points, device=device)
 output_dir = "max_normalized"
 os.makedirs(output_dir, exist_ok=True)
 
-# Use a previously generated random seed
-random_seed = 4529
-
-# Set the seeds for reproducibility
-torch.manual_seed(random_seed)
-np.random.seed(random_seed)
-
-# Print the chosen random seed
-print(f"Random seed for torch and numpy: {random_seed}")
-
-# Initialize controller and dynamics
-controller = PendulumController().to(device)
-pendulum_dynamics = PendulumDynamics(controller, m, R, g).to(device)
-
-# Optimizer setup
+# Optimizer values
 learning_rate = 1e-1
 weight_decay = 1e-4
-optimizer = optim.Adam(controller.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
 # Training parameters
-num_epochs = 1001
+num_epochs = 1000
 
 # Define loss functions
 def make_loss_fn(weight_fn):
@@ -93,11 +76,11 @@ weight_functions = {
         'description': 'Inverse weight: Weights decrease inversely, normalized by max'
     },
     'inverse_squared': {
-        'function': lambda t: (t+1)**-2 / ((t+1)**-1).max(),
+        'function': lambda t: (t+1)**-2 / ((t+1)**-2).max(),
         'description': 'Inverse squared weight: Weights decrease inversely squared, normalized by max'
     },
     'inverse_cubed': {
-        'function': lambda t: (t+1)**-3 / ((t+1)**-1).max(),
+        'function': lambda t: (t+1)**-3 / ((t+1)**-3).max(),
         'description': 'Inverse cubed weight: Weights decrease inversely cubed, normalized by max'
     }
 }
@@ -105,7 +88,9 @@ weight_functions = {
 # Training loop for each weight function
 for name, weight_info in weight_functions.items():
     controller = PendulumController().to(device)
+    controller.load_state_dict(torch.load(base_controller_path))
     pendulum_dynamics = PendulumDynamics(controller, m, R, g).to(device)
+    print(f"Loaded {base_controller_path} as base controller")
 
     optimizer = optim.Adam(controller.parameters(), lr=learning_rate, weight_decay=weight_decay)
     loss_fn = make_loss_fn(weight_info['function'])
@@ -124,7 +109,7 @@ for name, weight_info in weight_functions.items():
 
     # Overwrite configuration and log files
     with open(config_file, "w") as f:
-        f.write(f"Random Seed: {random_seed}\n")
+        f.write(f"Base controller path: {base_controller_path}\n")
         f.write(f"Time Span: {t_start} to {t_end}, Points: {t_points}\n")
         f.write(f"Learning Rate: {learning_rate}\n")
         f.write(f"Weight Decay: {weight_decay}\n")
@@ -139,23 +124,26 @@ for name, weight_info in weight_functions.items():
     with open(log_file, "w", newline="") as csvfile:
         csv_writer = csv.writer(csvfile)
         csv_writer.writerow(["Epoch", "Loss"])
-
+    
     # Training loop
-    for epoch in range(num_epochs):
+    for epoch in range(0, num_epochs+1):
         optimizer.zero_grad()
         state_traj = odeint(pendulum_dynamics, state_0, t_span, method='rk4')
         loss = loss_fn(state_traj, t_span)
         loss.backward()
+
+        # Save the model before training on this epoch
+        # Therefore, controller_epoch represents the controller after {epoch} training iterations
+        model_file = os.path.join(controllers_dir, f"controller_{epoch}.pth")
+        torch.save(controller.state_dict(), model_file)
+        print(f"{model_file} saved with loss: {loss}")
+
+        # Update the weights and biases
         optimizer.step()
 
         # Logging
         with open(log_file, "a", newline="") as csvfile:
             csv_writer = csv.writer(csvfile)
             csv_writer.writerow([epoch, loss.item()])
-
-        # Save the model
-        model_file = os.path.join(controllers_dir, f"controller_{epoch}.pth")
-        torch.save(controller.state_dict(), model_file)
-        print(f"{model_file} saved with loss: {loss}")
 
 print("Training complete. Models and logs are saved under respective directories for each loss function.")
