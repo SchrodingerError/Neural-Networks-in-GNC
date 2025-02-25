@@ -1,0 +1,1 @@
+# For every weight function, runs every test case for every epoch and save in a json

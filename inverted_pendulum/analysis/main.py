@@ -14,7 +14,10 @@ initial_conditions = {
     "extreme_perturbation": (4*np.pi, 0.0, 0.0, 0),
 }
 loss_functions = ["constant", "linear", "quadratic", "cubic", "inverse", "inverse_squared", "inverse_cubed"]
-epoch_range = (0, 3)  # Start and end of epoch range
+loss_functions_mirrored = ["linear", "quadratic", "cubic", "inverse", "inverse_squared", "inverse_cubed"]
+loss_functions_mirrored = [i+"_mirrored" for i in loss_functions_mirrored]
+loss_functions = loss_functions + loss_functions_mirrored
+epoch_range = (0, 100)  # Start and end of epoch range
 epoch_step = 1          # Interval between epochs
 dt = 0.02                # Time step for simulation
 num_steps = 500          # Number of steps in each simulation
@@ -75,7 +78,7 @@ if __name__ == "__main__":
 
         print(f"Completed plotting for all loss functions under {condition_name} condition.\n")
 
-    import json
+    # import json
 
-    with open("all_results.json", 'w') as file:
-        json.dump(all_results, file)
+    # with open("all_results.json", 'w') as file:
+    #     json.dump(all_results, file)
