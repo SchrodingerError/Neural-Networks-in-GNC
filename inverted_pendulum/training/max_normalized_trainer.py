@@ -54,34 +54,61 @@ def make_loss_fn(weight_fn):
     return loss_fn
 
 # Define and store weight functions with descriptions
+# weight_functions = {
+#     'constant': {
+#         'function': lambda t: torch.ones_like(t),
+#         'description': 'Constant weight: All weights are 1'
+#     },
+#     'linear': {
+#         'function': lambda t: (t+1) / (t+1).max(),
+#         'description': 'Linear weight: Weights increase linearly, normalized by max'
+#     },
+#     'quadratic': {
+#         'function': lambda t: (t+1)**2 / ((t+1)**2).max(),
+#         'description': 'Quadratic weight: Weights increase quadratically, normalized by max'
+#     },
+#     'cubic': {
+#         'function': lambda t: (t+1)**3 / ((t+1)**3).max(),
+#         'description': 'Quadratic weight: Weights increase cubically, normalized by max'
+#     },
+#     'inverse': {
+#         'function': lambda t: (t+1)**-1 / ((t+1)**-1).max(),
+#         'description': 'Inverse weight: Weights decrease inversely, normalized by max'
+#     },
+#     'inverse_squared': {
+#         'function': lambda t: (t+1)**-2 / ((t+1)**-2).max(),
+#         'description': 'Inverse squared weight: Weights decrease inversely squared, normalized by max'
+#     },
+#     'inverse_cubed': {
+#         'function': lambda t: (t+1)**-3 / ((t+1)**-3).max(),
+#         'description': 'Inverse cubed weight: Weights decrease inversely cubed, normalized by max'
+#     }
+# }
+
 weight_functions = {
-    'constant': {
-        'function': lambda t: torch.ones_like(t),
-        'description': 'Constant weight: All weights are 1'
+    'linear_mirrored': {
+        'function': lambda t: ((-t+10)+1) / ((-t+10)+1).max(),
+        'description': 'Linear mirrored weight: Weights decrease linearly, normalized by max'
     },
-    'linear': {
-        'function': lambda t: (t+1) / (t+1).max(),
-        'description': 'Linear weight: Weights increase linearly, normalized by max'
+    'quadratic_mirrored': {
+        'function': lambda t: ((-t+10)+1)**2 / (((-t+10)+1)**2).max(),
+        'description': 'Quadratic mirrored weight: Weights decrease quadratically, normalized by max'
     },
-    'quadratic': {
-        'function': lambda t: (t+1)**2 / ((t+1)**2).max(),
-        'description': 'Quadratic weight: Weights increase quadratically, normalized by max'
+    'cubic_mirrored': {
+        'function': lambda t: ((-t+10)+1)**3 / (((-t+10)+1)**3).max(),
+        'description': 'Quadratic mirrored weight: Weights decrease cubically, normalized by max'
     },
-    'cubic': {
-        'function': lambda t: (t+1)**3 / ((t+1)**3).max(),
-        'description': 'Quadratic weight: Weights increase cubically, normalized by max'
+    'inverse_mirrored': {
+        'function': lambda t: ((-t+10)+1)**-1 / (((-t+10)+1)**-1).max(),
+        'description': 'Inverse mirrored weight: Weights increase inversely, normalized by max'
     },
-    'inverse': {
-        'function': lambda t: (t+1)**-1 / ((t+1)**-1).max(),
-        'description': 'Inverse weight: Weights decrease inversely, normalized by max'
+    'inverse_squared_mirrored': {
+        'function': lambda t: ((-t+10)+1)**-2 / (((-t+10)+1)**-2).max(),
+        'description': 'Inverse squared mirrored weight: Weights increase inversely squared, normalized by max'
     },
-    'inverse_squared': {
-        'function': lambda t: (t+1)**-2 / ((t+1)**-2).max(),
-        'description': 'Inverse squared weight: Weights decrease inversely squared, normalized by max'
-    },
-    'inverse_cubed': {
-        'function': lambda t: (t+1)**-3 / ((t+1)**-3).max(),
-        'description': 'Inverse cubed weight: Weights decrease inversely cubed, normalized by max'
+    'inverse_cubed_mirrored': {
+        'function': lambda t: ((-t+10)+1)**-3 / (((-t+10)+1)**-3).max(),
+        'description': 'Inverse cubed mirrored weight: Weights increase inversely cubed, normalized by max'
     }
 }
 

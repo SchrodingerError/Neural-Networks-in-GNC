@@ -28,7 +28,7 @@ t_start, t_end, t_points = 0, 10, 1000
 t_span = torch.linspace(t_start, t_end, t_points, device=device)
 
 # Specify directory for storing results
-output_dir = "max_normalized"
+output_dir = "average_normalized"
 os.makedirs(output_dir, exist_ok=True)
 
 # Optimizer values
@@ -54,34 +54,61 @@ def make_loss_fn(weight_fn):
     return loss_fn
 
 # Define and store weight functions with descriptions, normalized by average weight
+# weight_functions = {
+#     'constant': {
+#         'function': lambda t: torch.ones_like(t) / torch.ones_like(t).mean(),
+#         'description': 'Constant weight: All weights are 1, normalized by the average (remains 1)'
+#     },
+#     'linear': {
+#         'function': lambda t: ((t+1) / (t+1).max()) / ((t+1) / (t+1).max()).mean(),
+#         'description': 'Linear weight: Weights increase linearly from 0 to 1, normalized by the average weight'
+#     },
+#     'quadratic': {
+#         'function': lambda t: ((t+1)**2 / ((t+1)**2).max()) / ((t+1)**2 / ((t+1)**2).max()).mean(),
+#         'description': 'Quadratic weight: Weights increase quadratically from 0 to 1, normalized by the average weight'
+#     },
+#     'cubic': {
+#         'function': lambda t: ((t+1)**3 / ((t+1)**3).max()) / ((t+1)**3 / ((t+1)**3).max()).mean(),
+#         'description': 'Quadratic weight: Weights increase cubically from 0 to 1, normalized by the average weight'
+#     },
+#     'inverse': {
+#         'function': lambda t: ((t+1)**-1 / ((t+1)**-1).max()) / ((t+1)**-1 / ((t+1)**-1).max()).mean(),
+#         'description': 'Inverse weight: Weights decrease inversely, normalized by the average weight'
+#     },
+#     'inverse_squared': {
+#         'function': lambda t: ((t+1)**-2 / ((t+1)**-2).max()) / ((t+1)**-2 / ((t+1)**-2).max()).mean(),
+#         'description': 'Inverse squared weight: Weights decrease inversely squared, normalized by the average weight'
+#     },
+#     'inverse_cubed': {
+#         'function': lambda t: ((t+1)**-3 / ((t+1)**-3).max()) / ((t+1)**-3 / ((t+1)**-3).max()).mean(),
+#         'description': 'Inverse cubed weight: Weights decrease inversely cubed, normalized by the average weight'
+#     }
+# }
+
 weight_functions = {
-    'constant': {
-        'function': lambda t: torch.ones_like(t) / torch.ones_like(t).mean(),
-        'description': 'Constant weight: All weights are 1, normalized by the average (remains 1)'
+    'linear_mirrored': {
+        'function': lambda t: (((-t+10)+1) / ((-t+10)+1).max()) / (((-t+10)+1) / ((-t+10)+1).max()).mean(),
+        'description': 'Linear mirrored weight: Weights decrease linearly from 0 to 1, normalized by the average weight'
     },
-    'linear': {
-        'function': lambda t: ((t+1) / (t+1).max()) / ((t+1) / (t+1).max()).mean(),
-        'description': 'Linear weight: Weights increase linearly from 0 to 1, normalized by the average weight'
+    'quadratic_mirrored': {
+        'function': lambda t: (((-t+10)+1)**2 / (((-t+10)+1)**2).max()) / (((-t+10)+1)**2 / (((-t+10)+1)**2).max()).mean(),
+        'description': 'Quadratic mirrored weight: Weights decrease quadratically from 0 to 1, normalized by the average weight'
     },
-    'quadratic': {
-        'function': lambda t: ((t+1)**2 / ((t+1)**2).max()) / ((t+1)**2 / ((t+1)**2).max()).mean(),
-        'description': 'Quadratic weight: Weights increase quadratically from 0 to 1, normalized by the average weight'
+    'cubic_mirrored': {
+        'function': lambda t: (((-t+10)+1)**3 / (((-t+10)+1)**3).max()) / (((-t+10)+1)**3 / (((-t+10)+1)**3).max()).mean(),
+        'description': 'Quadratic mirrored weight: Weights decrease cubically from 0 to 1, normalized by the average weight'
     },
-    'cubic': {
-        'function': lambda t: ((t+1)**3 / ((t+1)**3).max()) / ((t+1)**3 / ((t+1)**3).max()).mean(),
-        'description': 'Quadratic weight: Weights increase cubically from 0 to 1, normalized by the average weight'
+    'inverse_mirrored': {
+        'function': lambda t: (((-t+10)+1)**-1 / (((-t+10)+1)**-1).max()) / (((-t+10)+1)**-1 / (((-t+10)+1)**-1).max()).mean(),
+        'description': 'Inverse mirrored weight: Weights increase inversely, normalized by the average weight'
     },
-    'inverse': {
-        'function': lambda t: ((t+1)**-1 / ((t+1)**-1).max()) / ((t+1)**-1 / ((t+1)**-1).max()).mean(),
-        'description': 'Inverse weight: Weights decrease inversely, normalized by the average weight'
+    'inverse_squared_mirrored': {
+        'function': lambda t: (((-t+10)+1)**-2 / (((-t+10)+1)**-2).max()) / (((-t+10)+1)**-2 / (((-t+10)+1)**-2).max()).mean(),
+        'description': 'Inverse squared mirrored weight: Weights increase inversely squared, normalized by the average weight'
     },
-    'inverse_squared': {
-        'function': lambda t: ((t+1)**-2 / ((t+1)**-2).max()) / ((t+1)**-2 / ((t+1)**-2).max()).mean(),
-        'description': 'Inverse squared weight: Weights decrease inversely squared, normalized by the average weight'
-    },
-    'inverse_cubed': {
-        'function': lambda t: ((t+1)**-3 / ((t+1)**-3).max()) / ((t+1)**-3 / ((t+1)**-3).max()).mean(),
-        'description': 'Inverse cubed weight: Weights decrease inversely cubed, normalized by the average weight'
+    'inverse_cubed_mirrored': {
+        'function': lambda t: (((-t+10)+1)**-3 / (((-t+10)+1)**-3).max()) / (((-t+10)+1)**-3 / (((-t+10)+1)**-3).max()).mean(),
+        'description': 'Inverse cubed mirrored weight: Weights increase inversely cubed, normalized by the average weight'
     }
 }
 

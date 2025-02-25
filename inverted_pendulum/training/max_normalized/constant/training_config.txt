@@ -1,3 +1,4 @@
+Base controller path: /home/judson/Neural-Networks-in-GNC/inverted_pendulum/training/controller_base.pth
 Time Span: 0 to 10, Points: 1000
 Learning Rate: 0.1
 Weight Decay: 0.0001
