@@ -1,4 +1,3 @@
-import torch
 from torch import pi
 
 initial_conditions = [
